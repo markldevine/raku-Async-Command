@@ -11,9 +11,9 @@
   "name": "Async::Command",
   "perl": "6.c",
   "provides": {
-    "Async::Command": "lib/Async/Command.pm6",
-    "Async::Command::Multi": "lib/Async/Command/Multi.pm6",
-    "Async::Command::Result": "lib/Async/Command/Result.pm6"
+    "Async::Command": "lib/Async/Command.rakumod",
+    "Async::Command::Multi": "lib/Async/Command/Multi.rakumod",
+    "Async::Command::Result": "lib/Async/Command/Result.rakumod"
   },
   "resources": [ ],
   "source-url": "https://github.com/markldevine/raku-Async-Command.git",
