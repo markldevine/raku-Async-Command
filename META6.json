@@ -1,10 +1,7 @@
 {
-  "api": "0.1.0",
   "auth": "github:markldevine",
-  "authors": [
-    "Mark Devine <mark@markdevine.com>"
-  ],
-  "depends": [ ],
+  "authors": [ "Mark Devine <mark@markdevine.com>" ],
+  "depends": [],
   "description": "Async::Command - Run external command(s) asynchronously",
   "license": "Artistic-2.0",
   "meta-version": 0,
@@ -15,9 +12,8 @@
     "Async::Command::Multi": "lib/Async/Command/Multi.rakumod",
     "Async::Command::Result": "lib/Async/Command/Result.rakumod"
   },
-  "resources": [ ],
+  "resources": [],
   "source-url": "https://github.com/markldevine/raku-Async-Command.git",
-  "tags": [
-    "Async"
-  ]
+  "tags": [ "Async" ],
+  "version": "0.1.1"
 }

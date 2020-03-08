@@ -1,4 +1,4 @@
-unit        class Async::Command::Result:api<0.1.0>:auth<Mark Devine (mark@markdevine.com)>;
+unit        class Async::Command::Result:api<1>:auth<Mark Devine (mark@markdevine.com)>;
 
 has Str     @.command;
 has Int     $.exit-code = 1;

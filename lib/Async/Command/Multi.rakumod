@@ -1,4 +1,4 @@
-unit        class Async::Command::Multi:api<0.1.0>:auth<Mark Devine (mark@markdevine.com)>;
+unit        class Async::Command::Multi:api<1>:auth<Mark Devine (mark@markdevine.com)>;
 
 use         Async::Command;
 
