@@ -2,7 +2,7 @@ Async::Command
 ==============
 Run an individual command as a thread.
 
-[Async::Command::Multi](https://github.com/markldevine/raku-Async-Command/blob/main/doc/Async/Command/Multi.md) for parallelism.
+[Async::Command::Multi](https://github.com/markldevine/raku-Async-Command/blob/main/doc/Async/Command/Multi.md) for running multiple Async::Command instances in parallel.
 
 [Async::Command::Result](https://github.com/markldevine/raku-Async-Command/blob/main/doc/Async/Command/Result.md) to view the output data structure of Async::Command.
 
