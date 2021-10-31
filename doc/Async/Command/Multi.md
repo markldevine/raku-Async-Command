@@ -12,7 +12,7 @@ Synopsis
     %command<ngroups_max> = </bin/cat /proc/sys/kernel/ngroups_max>;
     %command<uptime>      = </usr/bin/uptime>;
     ...
-    %command<commandN> = </bin/commandN --cN>;
+    %command<commandN>    = </bin/commandN --cN>;
 
     my $command-manager = Async::Command::Multi.new(:%command, :2time-out, :4batch);
     $command-manager.sow;                   # start promises
