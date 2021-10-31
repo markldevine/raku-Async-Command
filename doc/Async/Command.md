@@ -60,7 +60,7 @@ Aync::Command will
   - enforce a time out (optionally)
   - retry on failure (optionally)
   - delay in between retry attempts (optionally)
-  - capture all results in an Async::Command::Result object
+  - capture all results in an [Async::Command::Result](https://github.com/markldevine/raku-Async-Command/blob/main/doc/Async/Command/Result.md) object
 
 Methods
 =======
@@ -110,9 +110,3 @@ An example script that runs a curl command
 
     my $json-token = Async::Command.new(:@command, :time-out(2.5), :2attempts, :delay(.1)).run.stdout-results;
 ```
-
-See Also
-========
-    Async::Command::Multi
- 
-    Async::Command::Result
