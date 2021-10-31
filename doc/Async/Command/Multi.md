@@ -1,16 +1,11 @@
-Name
-====
-
-`Async::Command::Multi`
-
-Description
-===========
-
+Async::Command::Multi
+=====================
 `Async::Command::Multi` executes multiple `Async::Command` instances.
 
 Synopsis
 ========
 
+```raku
     use Async::Command::Multi;
 
     my %command;
@@ -19,7 +14,7 @@ Synopsis
     ...
     %command<commandN> = </bin/commandN --cN>;
 
-    my $command-manager = Async::Command::Multi.new(:%command, :2default-time-out, :4batch);
+    my $command-manager = Async::Command::Multi.new(:%command, :2time-out, :4batch);
     $command-manager.sow;                   # start promises
     
     # do other things...
@@ -31,6 +26,7 @@ Synopsis
         printf("[%s] %s:\n", !%result{$key}.exit-code ?? '+' !! '-', $key);
         .say for %result{$key}.stdout-results;
     }
+```
 
 Methods
 =======
@@ -44,7 +40,7 @@ _keys_ are arbitrary and utilized by `Async::Command` to maintain associations.
 
 _values_ are independent commands to execute. Absolute paths are encouraged.
 
-    :$default-time-out
+    :$time-out
 
 Optional global timer for each promise, in Real seconds. No individual promise
 should take longer than this number of Real seconds to complete its thread.
@@ -62,20 +58,21 @@ Method `sow()` starts multiple Async::Command instances (promises).
 reap()
 ------
 
-Method `reap()` awaits all sown promises and returns a hash of
-`Async::Command::Result` objects.
+Method `reap()` awaits all sown promises and returns a hash of `Async::Command::Result` objects.
 
 Example
 =======
 
 _Given_
 
+```raku
     #!/usr/bin/env raku
     use Async::Command::Multi;
     my %command;
     %command<ctools> = <ssh ctools uname -n>;
     %command<jtools> = <ssh jtools notarealcommand>;
     dd $ = Async::Command::Multi.new(:%command, :1default-time-out).sow.reap;
+```
 
 _Output_
 
@@ -97,9 +94,3 @@ _Output_
             timed-out => Bool::False,
             unique-id => "jtools"))
     }
-
-See Also
-========
-Async::Command
-
-Async::Command::Result
