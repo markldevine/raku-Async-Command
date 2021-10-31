@@ -25,7 +25,7 @@ In a Raku file: run with time-out, adjust & succeed
     my $result = $cmd.run;
 ```
 
-Gives a poor result:
+Gives a poor result [timed out]:
 
 ```
 .Async::Command::Result @0
@@ -68,7 +68,7 @@ In a Raku file: lots of retries until eventual failure:
 ```raku
     #!/usr/bin/env raku
     use Async::Command;
-    my Async::Command $cmd .= new(:command('/usr/bin/false',)); # command likes lists, hence the extra comma
+    my Async::Command $cmd .= new(:command('/usr/bin/false',)); # `command` likes lists, hence the extra comma
     my $result = $cmd.run(:1time-out, :delay(.1), :9attempts);
 ```
 
