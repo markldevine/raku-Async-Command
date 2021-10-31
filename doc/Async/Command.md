@@ -9,14 +9,14 @@ Run an individual command as a thread.
 Synopsis
 --------
 
-One-liner: output the STDOUT of a simple command
+1-liner: print the STDOUT of a simple command
 
 ```
     user@AREA51:~> raku -M Async::Command -e 'Async::Command.new(:command</usr/bin/uname -n>).run.stdout-results.print;'
     AREA51
 ```
 
-In a Raku file
+In a Raku file: run with time-out, adjust & succeed
 
 ```raku
     #!/usr/bin/env raku
@@ -24,34 +24,68 @@ In a Raku file
     my Async::Command $cmd .= new(:command('/usr/bin/sleep', '.01'), :time-out(.001));
     my $result = $cmd.run;
 ```
-    #    .Async::Command::Result @0
-    #    ├ @.command = [2][Str] @1
-    #    │ ├ 0 = /usr/bin/sleep.Str
-    #    │ └ 1 = .01.Str
-    #    ├ $.attempts = 1   
-    #    ├ $.exit-code = 1
-    #    ├ $.stderr-results = 
-    #    │   [timed out]
-    #    │   .Str
-    #    ├ $.stdout-results = .Str
-    #    ├ $.time-out = 0.001 (1/1000).Rat
-    #    ├ $.timed-out = True
-    #    └ $.unique-id = Nil
-```raku
-    # reuse the same command again with a new time out
-    $result = $cmd.run(:time-out(.1));
+
+Gives a poor result:
+
 ```
-    #    .Async::Command::Result @0
-    #    ├ @.command = [2][Str] @1
-    #    │ ├ 0 = /usr/bin/sleep.Str
-    #    │ └ 1 = .01.Str
-    #    ├ $.attempts = 1   
-    #    ├ $.exit-code = 0   
-    #    ├ $.stderr-results = .Str
-    #    ├ $.stdout-results = .Str
-    #    ├ $.time-out = 0.1 (1/10).Rat
-    #    ├ $.timed-out = False
-    #    └ $.unique-id = Nil
+.Async::Command::Result @0
+├ @.command = [2][Str] @1
+│ ├ 0 = /usr/bin/sleep.Str
+│ └ 1 = .01.Str
+├ $.attempts = 1   
+├ $.exit-code = 1
+├ $.stderr-results = 
+│   [timed out]
+│   .Str
+├ $.stdout-results = .Str
+├ $.time-out = 0.001 (1/1000).Rat
+├ $.timed-out = True
+└ $.unique-id = Nil
+```
+
+```raku
+    $result = $cmd.run(:time-out(.1));       # reuse the same command again with a new time out
+```
+
+Gives the desired result:
+
+```
+.Async::Command::Result @0
+├ @.command = [2][Str] @1
+│ ├ 0 = /usr/bin/sleep.Str
+│ └ 1 = .01.Str
+├ $.attempts = 1   
+├ $.exit-code = 0   
+├ $.stderr-results = .Str
+├ $.stdout-results = .Str
+├ $.time-out = 0.1 (1/10).Rat
+├ $.timed-out = False
+└ $.unique-id = Nil
+```
+
+In a Raku file: lots of retries until eventual failure:
+
+```raku
+    #!/usr/bin/env raku
+    use Async::Command;
+    my Async::Command $cmd .= new(:command('/usr/bin/false',)); # command likes lists, hence the extra comma
+    my $result = $cmd.run(:1time-out, :delay(.1), :9attempts);
+```
+
+Results in the disappointing failure (not for lack of trying):
+
+```
+.Async::Command::Result @0
+├ @.command = [1][Str] @1
+│ └ 0 = /usr/bin/false.Str
+├ $.attempts = 9   
+├ $.exit-code = 1   
+├ $.stderr-results = .Str
+├ $.stdout-results = .Str
+├ $.time-out = 0.008214390999999988.Num
+├ $.timed-out = False
+└ $.unique-id = Nil
+```
 
 Description
 ===========
@@ -96,8 +130,8 @@ Examples
 An example script that runs a curl command
 
 ```raku
+    #!/usr/bin/env raku
     use Async::Command;
-
     my @command = [
                     'curl',
                     '-H', 'Content-Type:application/json',
@@ -107,6 +141,5 @@ An example script that runs a curl command
                     '-s',
                     'https://10.20.30.40/api/get_token',
                   ];
-
     my $json-token = Async::Command.new(:@command, :time-out(2.5), :2attempts, :delay(.1)).run.stdout-results;
 ```
