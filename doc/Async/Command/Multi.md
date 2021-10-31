@@ -83,6 +83,7 @@ ddt Async::Command::Multi.new(:%command, :1time-out).sow.reap;
 
 _Output_
 
+```
 {2} @0
 ├ cmd1 => .Async::Command::Result @1
 │ ├ @.command = [4][Str] @2
@@ -109,4 +110,4 @@ _Output_
   ├ $.time-out = 1   
   ├ $.timed-out = False
   └ $.unique-id = cmd2.Str
-
+```
