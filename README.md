@@ -1,27 +1,15 @@
-NAME
-====
+[Async::Command](https://github.com/markldevine/raku-Async-Command/blob/main/doc/Async/Command.md)
+================
+Run/manage a command in a promise & capture results.
 
-Async::Command
-
-Async::Command::Multi
+[Async::Command::Multi](https://github.com/markldevine/raku-Async-Command/blob/main/doc/Async/Command/Multi.md)
+=======================
+Run lots of Async::Command objects in parallel.
 
 AUTHOR
 ======
 Mark Devine <mark@markdevine.com>
 
-TITLE
-=====
-Asynchronous Command(s)
-
-SUBTITLE
-========
-Wrap external command(s) in promise(s) & capture results.
-
-Documentation
-=============
-See the doc/ directory.
-
 Citation
 ========
-Crafted by example from Perl 6 Fundamentals, by Moritz Lenz (ISBN
-978-1-4842-2899-9).
+Crafted by example from Perl 6 Fundamentals, by Moritz Lenz (ISBN 978-1-4842-2899-9).
