@@ -48,7 +48,7 @@ should take longer than this number of Real seconds to complete its thread.
 
     :$batch
 
-Simultaneous promise throttle. Default = 16. Mutable for subsequent re-runs.
+Promise throttle. Default = 16. Mutable for subsequent re-runs.
 
 sow()
 -----
@@ -71,7 +71,7 @@ _Given_
     my %command;
     %command<ctools> = <ssh ctools uname -n>;
     %command<jtools> = <ssh jtools notarealcommand>;
-    dd $ = Async::Command::Multi.new(:%command, :1default-time-out).sow.reap;
+    dd $ = Async::Command::Multi.new(:%command, :1time-out).sow.reap;
 ```
 
 _Output_
