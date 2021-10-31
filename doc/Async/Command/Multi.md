@@ -6,26 +6,26 @@ Synopsis
 ========
 
 ```raku
-    use Async::Command::Multi;
+use Async::Command::Multi;
 
-    my %command;
-    %command<ngroups_max> = </bin/cat /proc/sys/kernel/ngroups_max>;
-    %command<uptime>      = </usr/bin/uptime>;
+my %command;
+%command<ngroups_max> = </bin/cat /proc/sys/kernel/ngroups_max>;
+%command<uptime>      = </usr/bin/uptime>;
     ...
-    %command<commandN>    = </bin/commandN --cN>;
+%command<commandN>    = </bin/commandN --cN>;
 
-    my $command-manager = Async::Command::Multi.new(:%command, :2time-out, :4batch);
-    $command-manager.sow;                   # start promises
+my $command-manager = Async::Command::Multi.new(:%command, :2time-out, :4batch);
+$command-manager.sow;                   # start promises
     
-    # do other things...
+# do other things...
     
-    my %result = $command-manager.reap;     # await promises
+my %result = $command-manager.reap;     # await promises
 
-    # examine $*OUT from each successfully Kept promise
-    for %result.keys -> $key {
-        printf("[%s] %s:\n", !%result{$key}.exit-code ?? '+' !! '-', $key);
-        .say for %result{$key}.stdout-results;
-    }
+# examine $*OUT from each successfully Kept promise
+for %result.keys -> $key {
+    printf("[%s] %s:\n", !%result{$key}.exit-code ?? '+' !! '-', $key);
+    .say for %result{$key}.stdout-results;
+}
 ```
 
 Methods
@@ -72,31 +72,41 @@ Example
 _Given_
 
 ```raku
-    #!/usr/bin/env raku
-    use Async::Command::Multi;
-    my %command;
-    %command<ctools> = <ssh ctools uname -n>;
-    %command<jtools> = <ssh jtools notarealcommand>;
-    dd $ = Async::Command::Multi.new(:%command, :1time-out).sow.reap;
+#!/usr/bin/env raku
+use Async::Command::Multi;
+use Data::Dump::Tree;
+my %command;
+%command<cmd1> = <ssh localhost uname -n>;
+%command<cmd2> = 'notarealcommand',;
+ddt Async::Command::Multi.new(:%command, :1time-out).sow.reap;
 ```
 
 _Output_
 
-    Hash $ = ${
-        :ctools(Async::Command::Result.new(
-            command => ["ssh", "ctools", "uname", "-n"],
-            exit-code => 0,
-            stdout-results => "CTUNIXVMADMINPv\n",
-            stderr-results => "",
-            time-out => 1,
-            timed-out => Bool::False,
-            unique-id => "ctools")),
-        :jtools(Async::Command::Result.new(
-            command => ["ssh", "jtools", "notarealcommand"],
-            exit-code => 127,
-            stdout-results => "",
-            stderr-results => "sh: notarealcommand: command not found\n",
-            time-out => 1,
-            timed-out => Bool::False,
-            unique-id => "jtools"))
-    }
+{2} @0
+├ cmd1 => .Async::Command::Result @1
+│ ├ @.command = [4][Str] @2
+│ │ ├ 0 = ssh.Str
+│ │ ├ 1 = localhost.Str
+│ │ ├ 2 = uname.Str
+│ │ └ 3 = -n.Str
+│ ├ $.attempts = 1   
+│ ├ $.exit-code = 0   
+│ ├ $.stderr-results = .Str
+│ ├ $.stdout-results = 
+│ │   AREA51
+│ │   .Str
+│ ├ $.time-out = 1   
+│ ├ $.timed-out = False
+│ └ $.unique-id = cmd1.Str
+└ cmd2 => .Async::Command::Result @3
+  ├ @.command = [1][Str] @4
+  │ └ 0 = notarealcommand.Str
+  ├ $.attempts = 1   
+  ├ $.exit-code = -1   
+  ├ $.stderr-results = .Str
+  ├ $.stdout-results = .Str
+  ├ $.time-out = 1   
+  ├ $.timed-out = False
+  └ $.unique-id = cmd2.Str
+
