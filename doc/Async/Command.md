@@ -1,6 +1,6 @@
 Async::Command
 ==============
-Run an individual command asynchronously.
+Run an individual command concurrently.
 
 [Async::Command::Multi](https://github.com/markldevine/raku-Async-Command/blob/main/doc/Async/Command/Multi.md) for parallelism.
 
