@@ -1,30 +1,61 @@
-Name
-====
-`Async::Command`
+Async::Command
+==============
+Run an individual command asynchronously.
+
+[Async::Command::Multi](https://github.com/markldevine/raku-Async-Command/blob/main/doc/Async/Command/Multi.md) for parallelism
+
+Synopsis
+--------
+One-liner: output the STDOUT of a simple command
+
+```
+    user@AREA51:~> raku -M Async::Command -e 'Async::Command.new(:command</usr/bin/uname -n>).run.stdout-results.print;'
+    AREA51
+```
+
+```raku
+    #!/usr/bin/env raku
+    use Async::Command;
+    my Async::Command $cmd .= new(:command('/usr/bin/sleep', '.01'), :time-out(.001));
+    my $result = $cmd.run;
+```
+    #    .Async::Command::Result @0
+    #    ├ @.command = [2][Str] @1
+    #    │ ├ 0 = /usr/bin/sleep.Str
+    #    │ └ 1 = .01.Str
+    #    ├ $.attempts = 1   
+    #    ├ $.exit-code = 1
+    #    ├ $.stderr-results = 
+    #    │   [timed out]
+    #    │   .Str
+    #    ├ $.stdout-results = .Str
+    #    ├ $.time-out = 0.001 (1/1000).Rat
+    #    ├ $.timed-out = True
+    #    └ $.unique-id = Nil
+```raku
+    # reuse the same command again with a new time out
+    $result = $cmd.run(:time-out(.1));
+```
+    #    .Async::Command::Result @0
+    #    ├ @.command = [2][Str] @1
+    #    │ ├ 0 = /usr/bin/sleep.Str
+    #    │ └ 1 = .01.Str
+    #    ├ $.attempts = 1   
+    #    ├ $.exit-code = 0   
+    #    ├ $.stderr-results = .Str
+    #    ├ $.stdout-results = .Str
+    #    ├ $.time-out = 0.1 (1/10).Rat
+    #    ├ $.timed-out = False
+    #    └ $.unique-id = Nil
 
 Description
 ===========
-`Async::Command` will run the specified command in a promise,
-enforce an optional time out, capture $*ERR & $*OUT, and record
-the exit status value. All of this is contained in an
-`Async::Command::Result` object for examination afterward.
-
-Synopsis
-========
-
-Execute a command
------------------
-
-    use Async::Command;
-
-    # run a simple command
-    my $result = Async::Command.new(:command</usr/bin/uname -n>).run;
-
-    # run a command with a persistent time out
-    my Async::Command $cmd .= new(:command</usr/bin/uname -s>, :1time-out);
-    $result = $cmd.run;
-    # run the same command again with a new time out
-    $result = $cmd.run(:time-out(.001));
+Aync::Command will
+  - execute & manage the specified command in a promise
+  - enforce a time out (optionally)
+  - retry on failure (optionally)
+  - delay in between retry attempts (optionally)
+  - capture all results in an Async::Command::Result object
 
 Methods
 =======
@@ -45,8 +76,15 @@ run()
 
     :$time-out
     
-Optional time-out override in Real seconds. Useful for re-running the
-command with a new value or '0' for no time out.
+Optional time-out override in Real seconds. Useful for re-running the command with different time out value.
+
+    :$attempts
+    
+Optional retry attempts maximum.
+
+    :$delay
+    
+Optional delay interval between retry attempts.
 
 Examples
 ========
