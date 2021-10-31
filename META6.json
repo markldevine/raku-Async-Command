@@ -2,7 +2,7 @@
   "auth": "zef:markldevine",
   "authors": [ "Mark Devine <mark@markdevine.com>" ],
   "depends": [],
-  "description": "Async::Command - Run a command as a thread; Also Multi",
+  "description": "Async::Command - Run a command as a thread; Async::Command::Multi - do lots",
   "license": "Artistic-2.0",
   "meta-version": 0,
   "name": "Async::Command",
