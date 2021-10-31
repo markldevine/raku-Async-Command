@@ -8,32 +8,32 @@ Attributes
 
 _command_
 
-The executed command that produced the result.
+- The executed command that produced the result.
 
 _attempts_
 
-The actual number of execution attempts.
+- The actual number of execution attempts.
 
 _exit-code_
 
-The last exit code returned from the command.
+- e last exit code returned from the command.
 
 _stderr-results_
 
-The STDERR stream from the command.
+- e STDERR stream from the command.
 
 _stdout-results_
 
-The STDOUT stream from the command.
+- e STDOUT stream from the command.
 
 _time-out_
 
-The timer that constrained the command's execution opportunity.
+- e timer that constrained the command's execution opportunity.
 
 _timed-out_
 
-A flag that indicates whether or not the command completed within the prescribed time interval. If timed-out is true, execution was aborted.
+- flag that indicates whether or not the command completed within the prescribed time interval. If timed-out is true, execution was aborted.
 
 _unique-id_
 
-An arbitrary identifier that is typically used to track the command from the original caller's perspective (used internally by [Async::Command::Multi](https://github.com/markldevine/raku-Async-Command/blob/main/doc/Async/Command/Multi.md))
+-  arbitrary identifier that is typically used to track the command from the original caller's perspective (used internally by [Async::Command::Multi](https://github.com/markldevine/raku-Async-Command/blob/main/doc/Async/Command/Multi.md))
