@@ -9,8 +9,8 @@ Synopsis
     use Async::Command::Multi;
 
     my %command;
-    %command<cmd1>     = </usr/bin/command1 -x>;
-    %command<c2>       = </usr/local/bin/command2 -c2>;
+    %command<ngroups_max> = </bin/cat /proc/sys/kernel/ngroups_max>;
+    %command<uptime>      = </usr/bin/uptime>;
     ...
     %command<commandN> = </bin/commandN --cN>;
 
