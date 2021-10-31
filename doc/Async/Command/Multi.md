@@ -1,6 +1,6 @@
 Async::Command::Multi
 =====================
-`Async::Command::Multi` executes multiple `Async::Command` instances.
+Executes multiple [Async::Command](https://github.com/markldevine/raku-Async-Command/blob/main/doc/Async/Command.md) instances.
 
 Synopsis
 ========
