@@ -63,7 +63,7 @@ Gives the desired result:
 └ $.unique-id = Nil
 ```
 
-In a Raku file: lots of retries until eventual failure:
+In a Raku file: lots of retries until exhausted:
 
 ```raku
     #!/usr/bin/env raku
