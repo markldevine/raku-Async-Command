@@ -1,7 +1,7 @@
-Description
-===========
+Async::Command::Result
+======================
 
-`Async::Command::Result` encapsulates the attributes of running a command.
+Encapsulates the results of a completed [Async::Command](https://github.com/markldevine/raku-Async-Command/blob/main/doc/Async/Command.md) run().
 
 Attributes
 ----------
@@ -10,9 +10,13 @@ _command_
 
 The executed command that produced the result.
 
+_attempts_
+
+The actual number of execution attempts.
+
 _exit-code_
 
-The exit code returned from the command after completion.
+The last exit code returned from the command.
 
 _stderr-results_
 
@@ -28,40 +32,8 @@ The timer that constrained the command's execution opportunity.
 
 _timed-out_
 
-A flag that indicates whether or not the command completed
-within the prescribed time interval. If timed-out is true,
-execution was likely aborted.
+A flag that indicates whether or not the command completed within the prescribed time interval. If timed-out is true, execution was aborted.
 
 _unique-id_
 
-An arbitrary identifier that is typically used to track
-the command from the original caller's perspective.
-
-Synopsis
-========
-
-    use Async::Command::Result;
-
-    my $result = Async::Command::Result.new(
-        :@command,
-        :$exit-code,
-        :$stderr-results,
-        :$stdout-results,
-        :$time-out,
-        :$timed-out,
-        :$unique-id,
-    );
-
-    say $result.command;
-    say $result.exit-code;
-    say $result.stderr-results;
-    say $result.stdout-results;
-    say $result.time-out;
-    say $result.timed-out;
-    say $result.unique-id;
-
-See Also
-========
-Async::Command
-
-Async::Command::Multi
+An arbitrary identifier that is typically used to track the command from the original caller's perspective (used internally by [Async::Command::Multi](https://github.com/markldevine/raku-Async-Command/blob/main/doc/Async/Command/Multi.md))
