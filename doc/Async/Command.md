@@ -43,6 +43,8 @@ Gives a poor result [timed out]:
 └ $.unique-id = Nil
 ```
 
+Adjust the timeout...
+
 ```raku
     $result = $cmd.run(:time-out(.1));       # reuse the same command again with a new time out
 ```
