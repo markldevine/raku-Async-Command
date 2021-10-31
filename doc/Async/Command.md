@@ -106,7 +106,7 @@ An example script that runs a curl command
                     '-k',
                     '-s',
                     'https://10.20.30.40/api/get_token',
-                 ];
+                  ];
 
     my $json-token = Async::Command.new(:@command, :time-out(2.5), :2attempts, :delay(.1)).run.stdout-results;
 ```
