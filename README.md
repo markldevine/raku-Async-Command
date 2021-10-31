@@ -6,7 +6,7 @@ Run/manage a command in a promise & capture results.
 =======================
 Run lots of Async::Command objects in parallel.
 
-[Async::Command::Result](https://github.com/markldevine/raku-Async-Command/blob/main/doc/Async/Command/Result.md) to view the output data structure of Async::Command.
+[Async::Command::Result](https://github.com/markldevine/raku-Async-Command/blob/main/doc/Async/Command/Result.md)
 ========================
 Standard data structure which captures all Async::Command activity and outputs.
 
