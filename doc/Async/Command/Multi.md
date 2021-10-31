@@ -36,29 +36,35 @@ new()
 
     :%command
 
-_keys_ are arbitrary and utilized by `Async::Command` to maintain associations.
+_keys_ are arbitrary and respected by [Async::Command](https://github.com/markldevine/raku-Async-Command/blob/main/doc/Async/Command.md) to maintain associations.
 
 _values_ are independent commands to execute. Absolute paths are encouraged.
 
     :$time-out
 
-Optional global timer for each promise, in Real seconds. No individual promise
-should take longer than this number of Real seconds to complete its thread.
-'0' indicates no time out.
+Optional global timer for each promise, in Real seconds. No individual promise should take longer than this number of Real seconds to complete its thread. '0' indicates no time out.
 
     :$batch
 
 Promise throttle. Default = 16. Mutable for subsequent re-runs.
 
+    :$attempts
+    
+Optional retry attempts maximum.
+
+    :$delay
+    
+Optional delay interval between retry attempts.
+
 sow()
 -----
 
-Method `sow()` starts multiple Async::Command instances (promises).
+Method `sow()` starts multiple [Async::Command](https://github.com/markldevine/raku-Async-Command/blob/main/doc/Async/Command.md) instances (promises).
 
 reap()
 ------
 
-Method `reap()` awaits all sown promises and returns a hash of `Async::Command::Result` objects.
+Method `reap()` awaits all sown promises and returns a hash of [Async::Command::Result](https://github.com/markldevine/raku-Async-Command/blob/main/doc/Async/Command/Result.md) objects.
 
 Example
 =======
