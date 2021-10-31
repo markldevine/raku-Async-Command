@@ -6,12 +6,15 @@ Run an individual command asynchronously.
 
 Synopsis
 --------
+
 One-liner: output the STDOUT of a simple command
 
 ```
     user@AREA51:~> raku -M Async::Command -e 'Async::Command.new(:command</usr/bin/uname -n>).run.stdout-results.print;'
     AREA51
 ```
+
+In a Raku file
 
 ```raku
     #!/usr/bin/env raku
@@ -89,8 +92,8 @@ Optional delay interval between retry attempts.
 Examples
 ========
 An example script that runs a curl command
-------------------------------------------
 
+```raku
     use Async::Command;
 
     my @command = [
@@ -103,27 +106,8 @@ An example script that runs a curl command
                     'https://10.20.30.40/api/get_token',
                  ];
 
-    dd $ = Async::Command.new(:@command, :2time-out).run;
-
-Returns an Async::Command::Result object
-----------------------------------------
-
-    Async::Command::Result $ =
-        Async::Command::Result.new(
-            command => Array[Str].new(
-                "curl", "-H", "Content-Type:application/json",
-                "-d", "\{\"user\":\"myuserid\",\"password\":\"mYpAsSwOrD!\"}",
-                "-X", " POST",
-                "-k", "-s",
-                "https://10.20.30.40/api/get_token"
-            ),
-            exit-code => 0,
-            stderr-results => "",
-            stdout-results => "\{\"token\":\"123456789123456789123456789123456789\"}",
-            time-out => 2,
-            timed-out => Bool::False,
-            unique-id => Str
-        )
+    my $json-token = Async::Command.new(:@command, :time-out(2.5), :2attempts, :delay(.1)).run.stdout-results;
+```
 
 See Also
 ========
