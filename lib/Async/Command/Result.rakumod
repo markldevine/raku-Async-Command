@@ -1,7 +1,7 @@
 unit        class Async::Command::Result:api<1>:auth<Mark Devine (mark@markdevine.com)>;
 
 has Str     @.command;
-has UInt    $!attempts = 1;
+has UInt    $.attempts = 1;
 has Int     $.exit-code = 1;
 has Str     $.stderr-results is required;
 has Str     $.stdout-results is required;
