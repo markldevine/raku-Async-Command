@@ -16,7 +16,7 @@ _attempts_
 
 _exit-code_
 
-- The last exit code returned from the command
+- The exit code returned from the command
 
 _stderr-results_
 
