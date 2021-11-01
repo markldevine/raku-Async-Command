@@ -6,6 +6,7 @@ Synopsis
 ========
 
 ```raku
+#!/usr/bin/env raku
 use Async::Command::Multi;
 
 my %command;
