@@ -77,14 +77,13 @@ use Async::Command::Multi;
 use Data::Dump::Tree;
 my %command;
 %command<cmd1> = <ssh localhost uname -n>;
-%command<cmd2> = 'notarealcommand',;
+%command<cmd2> = <sh notarealcommand>;
 ddt Async::Command::Multi.new(:%command, :1time-out).sow.reap;
 ```
 
 _Output_
 
 ```
-{2} @0
 ├ cmd1 => .Async::Command::Result @1
 │ ├ @.command = [4][Str] @2
 │ │ ├ 0 = ssh.Str
@@ -101,11 +100,14 @@ _Output_
 │ ├ $.timed-out = False
 │ └ $.unique-id = cmd1.Str
 └ cmd2 => .Async::Command::Result @3
-  ├ @.command = [1][Str] @4
-  │ └ 0 = notarealcommand.Str
+  ├ @.command = [2][Str] @4
+  │ ├ 0 = sh.Str
+  │ └ 1 = notarealcommand.Str
   ├ $.attempts = 1   
-  ├ $.exit-code = -1   
-  ├ $.stderr-results = .Str
+  ├ $.exit-code = 127   
+  ├ $.stderr-results = 
+  │   sh: notarealcommand: No such file or directory
+  │   .Str
   ├ $.stdout-results = .Str
   ├ $.time-out = 1   
   ├ $.timed-out = False
