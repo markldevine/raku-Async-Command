@@ -46,7 +46,7 @@ Gives a poor result [timed out]:
 Adjust the timeout...
 
 ```raku
-$result = $cmd.run(:time-out(.1));       # reuse the same command again with a new time out
+$result = $cmd.run(:time-out(.1));       # reuse the same command with a new time out
 ```
 
 Gives the desired result:
