@@ -12,17 +12,17 @@ Synopsis
 1-liner: print the STDOUT of a simple command
 
 ```
-    user@AREA51:~> raku -M Async::Command -e 'Async::Command.new(:command</usr/bin/uname -n>).run.stdout-results.print;'
-    AREA51
+user@AREA51:~> raku -M Async::Command -e 'Async::Command.new(:command</usr/bin/uname -n>).run.stdout-results.print;'
+AREA51
 ```
 
 In a Raku file: run with time-out, adjust & succeed
 
 ```raku
-    #!/usr/bin/env raku
-    use Async::Command;
-    my Async::Command $cmd .= new(:command('/usr/bin/sleep', '.01'), :time-out(.001));
-    my $result = $cmd.run;
+#!/usr/bin/env raku
+use Async::Command;
+my Async::Command $cmd .= new(:command('/usr/bin/sleep', '.01'), :time-out(.001));
+my $result = $cmd.run;
 ```
 
 Gives a poor result [timed out]:
@@ -46,7 +46,7 @@ Gives a poor result [timed out]:
 Adjust the timeout...
 
 ```raku
-    $result = $cmd.run(:time-out(.1));       # reuse the same command again with a new time out
+$result = $cmd.run(:time-out(.1));       # reuse the same command again with a new time out
 ```
 
 Gives the desired result:
@@ -68,10 +68,10 @@ Gives the desired result:
 In a Raku file: lots of retries until exhausted:
 
 ```raku
-    #!/usr/bin/env raku
-    use Async::Command;
-    my Async::Command $cmd .= new(:command('/usr/bin/false',)); # `command` likes lists, hence the extra comma
-    my $result = $cmd.run(:1time-out, :delay(.1), :9attempts);
+#!/usr/bin/env raku
+use Async::Command;
+my Async::Command $cmd .= new(:command('/usr/bin/false',)); # `command` likes lists, hence the extra comma
+my $result = $cmd.run(:1time-out, :delay(.1), :9attempts);
 ```
 
 Results in the disappointing failure (not for lack of trying):
@@ -132,16 +132,16 @@ Examples
 An example script that runs a curl command
 
 ```raku
-    #!/usr/bin/env raku
-    use Async::Command;
-    my @command = [
-                    'curl',
-                    '-H', 'Content-Type:application/json',
-                    '-d', '{"user":"myuserid","password":"mYpAsSwOrD!"}',
-                    '-X', ' POST',
-                    '-k',
-                    '-s',
-                    'https://10.20.30.40/api/get_token',
-                  ];
-    my $json-token = Async::Command.new(:@command, :time-out(2.5), :2attempts, :delay(.1)).run.stdout-results;
+#!/usr/bin/env raku
+use Async::Command;
+my @command = [
+                'curl',
+                '-H', 'Content-Type:application/json',
+                '-d', '{"user":"myuserid","password":"mYpAsSwOrD!"}',
+                '-X', ' POST',
+                '-k',
+                '-s',
+                'https://10.20.30.40/api/get_token',
+              ];
+my $json-token = Async::Command.new(:@command, :time-out(2.5), :2attempts, :delay(.1)).run.stdout-results;
 ```
